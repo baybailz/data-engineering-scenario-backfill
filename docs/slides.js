@@ -36,8 +36,9 @@ window.SLIDES = [
 
   {id:'arch', kicker:'THE ARCHITECTURE', render(){
     return `<h2>The architecture</h2>
-      <p class="lead">Run dispatches a GitHub Actions workflow: Python lands or injects or backfills,
-        dbt builds and tests, results are committed back as JSON, even when the build failed.</p>
+      <p class="lead">Run dispatches a GitHub Actions workflow: Python lands a day, injects the bug
+        or replays a range, dbt builds and tests, results are committed back as JSON even when the
+        build failed.</p>
       <div class="diagram" style="position:relative">
         ${S.isNarrow()?S.archFlow():S.svgArch()}
         ${S.isNarrow()?'':`<button class="zoombtn" id="archZoomBtn">${S.archZoom?'&#8854; full picture':'&#8853; zoom to pipeline'}</button>`}
