@@ -1,156 +1,252 @@
 {
- "name": "2026-07-03",
+ "name": "2026-07-04",
  "rows": [
   {
-   "sale_id": "SL-1051",
-   "store_id": "ST-01",
-   "sale_date": "2026-07-03",
-   "gross_amount": "108.31",
-   "tax_amount": "7.78",
+   "sale_id": "SL-1070",
+   "store_id": "ST-02",
+   "sale_date": "2026-07-04",
+   "gross_amount": "211.34",
+   "tax_amount": "14.57",
+   "channel": "phone"
+  },
+  {
+   "sale_id": "SL-1071",
+   "store_id": "ST-02",
+   "sale_date": "2026-07-04",
+   "gross_amount": "66.18",
+   "tax_amount": "4.69",
    "channel": "online"
   },
   {
-   "sale_id": "SL-1052",
+   "sale_id": "SL-1072",
    "store_id": "ST-05",
-   "sale_date": "2026-07-03",
-   "gross_amount": "221.29",
-   "tax_amount": "14.56",
-   "channel": "online"
-  },
-  {
-   "sale_id": "SL-1053",
-   "store_id": "ST-05",
-   "sale_date": "2026-07-03",
-   "gross_amount": "133.17",
-   "tax_amount": "9.02",
+   "sale_date": "2026-07-04",
+   "gross_amount": "250.19",
+   "tax_amount": "17.29",
    "channel": "in_store"
   },
   {
-   "sale_id": "SL-1054",
-   "store_id": "ST-03",
-   "sale_date": "2026-07-03",
-   "gross_amount": "48.77",
-   "tax_amount": "3.38",
+   "sale_id": "SL-1073",
+   "store_id": "ST-05",
+   "sale_date": "2026-07-04",
+   "gross_amount": "369.89",
+   "tax_amount": "31.44",
    "channel": "online"
   },
   {
-   "sale_id": "SL-1055",
-   "store_id": "ST-02",
-   "sale_date": "2026-07-03",
-   "gross_amount": "413.42",
-   "tax_amount": "26.28",
-   "channel": "online"
+   "sale_id": "SL-1074",
+   "store_id": "ST-05",
+   "sale_date": "2026-07-04",
+   "gross_amount": "350.06",
+   "tax_amount": "27.46",
+   "channel": "in_store"
   },
   {
-   "sale_id": "SL-1056",
-   "store_id": "ST-01",
-   "sale_date": "2026-07-03",
-   "gross_amount": "139.56",
-   "tax_amount": "8.56",
-   "channel": "phone"
-  },
-  {
-   "sale_id": "SL-1057",
-   "store_id": "ST-01",
-   "sale_date": "2026-07-03",
-   "gross_amount": "166.20",
-   "tax_amount": "11.16",
-   "channel": "phone"
-  },
-  {
-   "sale_id": "SL-1058",
+   "sale_id": "SL-1075",
    "store_id": "ST-04",
-   "sale_date": "2026-07-03",
-   "gross_amount": "393.27",
-   "tax_amount": "28.34",
-   "channel": "online"
-  },
-  {
-   "sale_id": "SL-1059",
-   "store_id": "ST-01",
-   "sale_date": "2026-07-03",
-   "gross_amount": "415.89",
-   "tax_amount": "27.57",
-   "channel": "online"
-  },
-  {
-   "sale_id": "SL-1060",
-   "store_id": "ST-02",
-   "sale_date": "2026-07-03",
-   "gross_amount": "314.07",
-   "tax_amount": "21.21",
+   "sale_date": "2026-07-04",
+   "gross_amount": "52.72",
+   "tax_amount": "4.37",
    "channel": "in_store"
   },
   {
-   "sale_id": "SL-1061",
+   "sale_id": "SL-1076",
+   "store_id": "ST-01",
+   "sale_date": "2026-07-04",
+   "gross_amount": "43.12",
+   "tax_amount": "3.53",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1077",
+   "store_id": "ST-05",
+   "sale_date": "2026-07-04",
+   "gross_amount": "308.91",
+   "tax_amount": "25.32",
+   "channel": "online"
+  },
+  {
+   "sale_id": "SL-1078",
    "store_id": "ST-02",
-   "sale_date": "2026-07-03",
-   "gross_amount": "116.03",
-   "tax_amount": "9.30",
+   "sale_date": "2026-07-04",
+   "gross_amount": "211.02",
+   "tax_amount": "16.46",
    "channel": "online"
   },
   {
-   "sale_id": "SL-1062",
-   "store_id": "ST-03",
-   "sale_date": "2026-07-03",
-   "gross_amount": "67.54",
-   "tax_amount": "4.70",
-   "channel": "online"
-  },
-  {
-   "sale_id": "SL-1063",
-   "store_id": "ST-03",
-   "sale_date": "2026-07-03",
-   "gross_amount": "376.99",
-   "tax_amount": "25.93",
+   "sale_id": "SL-1079",
+   "store_id": "ST-01",
+   "sale_date": "2026-07-04",
+   "gross_amount": "223.07",
+   "tax_amount": "14.04",
    "channel": "phone"
   },
   {
-   "sale_id": "SL-1064",
+   "sale_id": "SL-1080",
    "store_id": "ST-02",
-   "sale_date": "2026-07-03",
-   "gross_amount": "396.06",
-   "tax_amount": "31.51",
-   "channel": "online"
-  },
-  {
-   "sale_id": "SL-1065",
-   "store_id": "ST-05",
-   "sale_date": "2026-07-03",
-   "gross_amount": "323.61",
-   "tax_amount": "28.12",
+   "sale_date": "2026-07-04",
+   "gross_amount": "256.85",
+   "tax_amount": "18.18",
    "channel": "phone"
   },
   {
-   "sale_id": "SL-1066",
-   "store_id": "ST-01",
-   "sale_date": "2026-07-03",
-   "gross_amount": "172.58",
-   "tax_amount": "11.80",
-   "channel": "in_store"
-  },
-  {
-   "sale_id": "SL-1067",
+   "sale_id": "SL-1081",
    "store_id": "ST-05",
-   "sale_date": "2026-07-03",
-   "gross_amount": "410.41",
-   "tax_amount": "28.46",
+   "sale_date": "2026-07-04",
+   "gross_amount": "111.40",
+   "tax_amount": "9.43",
    "channel": "in_store"
   },
   {
-   "sale_id": "SL-1068",
+   "sale_id": "SL-1082",
+   "store_id": "ST-01",
+   "sale_date": "2026-07-04",
+   "gross_amount": "198.52",
+   "tax_amount": "15.14",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1083",
+   "store_id": "ST-04",
+   "sale_date": "2026-07-04",
+   "gross_amount": "193.23",
+   "tax_amount": "14.50",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1084",
    "store_id": "ST-03",
-   "sale_date": "2026-07-03",
-   "gross_amount": "366.46",
-   "tax_amount": "23.03",
+   "sale_date": "2026-07-04",
+   "gross_amount": "192.27",
+   "tax_amount": "15.42",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1085",
+   "store_id": "ST-04",
+   "sale_date": "2026-07-04",
+   "gross_amount": "393.37",
+   "tax_amount": "24.31",
    "channel": "online"
   },
   {
-   "sale_id": "SL-1069",
+   "sale_id": "SL-1086",
+   "store_id": "ST-02",
+   "sale_date": "2026-07-04",
+   "gross_amount": "39.47",
+   "tax_amount": "2.76",
+   "channel": "online"
+  },
+  {
+   "sale_id": "SL-1087",
+   "store_id": "ST-04",
+   "sale_date": "2026-07-04",
+   "gross_amount": "160.95",
+   "tax_amount": "12.67",
+   "channel": "online"
+  },
+  {
+   "sale_id": "SL-1088",
+   "store_id": "ST-01",
+   "sale_date": "2026-07-04",
+   "gross_amount": "417.42",
+   "tax_amount": "32.72",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1089",
+   "store_id": "ST-02",
+   "sale_date": "2026-07-04",
+   "gross_amount": "220.64",
+   "tax_amount": "14.02",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1090",
    "store_id": "ST-03",
-   "sale_date": "2026-07-03",
-   "gross_amount": "98.32",
-   "tax_amount": "8.10",
+   "sale_date": "2026-07-04",
+   "gross_amount": "63.73",
+   "tax_amount": "5.65",
+   "channel": "phone"
+  },
+  {
+   "sale_id": "SL-1091",
+   "store_id": "ST-05",
+   "sale_date": "2026-07-04",
+   "gross_amount": "290.92",
+   "tax_amount": "21.73",
+   "channel": "phone"
+  },
+  {
+   "sale_id": "SL-1092",
+   "store_id": "ST-02",
+   "sale_date": "2026-07-04",
+   "gross_amount": "116.62",
+   "tax_amount": "8.26",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1093",
+   "store_id": "ST-03",
+   "sale_date": "2026-07-04",
+   "gross_amount": "37.19",
+   "tax_amount": "2.59",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1094",
+   "store_id": "ST-01",
+   "sale_date": "2026-07-04",
+   "gross_amount": "329.76",
+   "tax_amount": "20.19",
+   "channel": "phone"
+  },
+  {
+   "sale_id": "SL-1095",
+   "store_id": "ST-04",
+   "sale_date": "2026-07-04",
+   "gross_amount": "160.50",
+   "tax_amount": "10.61",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1096",
+   "store_id": "ST-01",
+   "sale_date": "2026-07-04",
+   "gross_amount": "309.63",
+   "tax_amount": "22.88",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1097",
+   "store_id": "ST-02",
+   "sale_date": "2026-07-04",
+   "gross_amount": "238.87",
+   "tax_amount": "19.54",
+   "channel": "online"
+  },
+  {
+   "sale_id": "SL-1098",
+   "store_id": "ST-03",
+   "sale_date": "2026-07-04",
+   "gross_amount": "22.55",
+   "tax_amount": "1.80",
+   "channel": "phone"
+  },
+  {
+   "sale_id": "SL-1099",
+   "store_id": "ST-02",
+   "sale_date": "2026-07-04",
+   "gross_amount": "110.64",
+   "tax_amount": "8.96",
+   "channel": "in_store"
+  },
+  {
+   "sale_id": "SL-1100",
+   "store_id": "ST-01",
+   "sale_date": "2026-07-04",
+   "gross_amount": "26.84",
+   "tax_amount": "1.94",
    "channel": "online"
   }
  ]
