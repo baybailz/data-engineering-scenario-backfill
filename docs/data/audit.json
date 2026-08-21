@@ -1,50 +1,26 @@
 [
  {
   "model_name": "dm_daily_sales",
-  "row_count": 4,
-  "invocation_id": "6e792a16-221d-41fb-b2ce-ac331cc16ab1",
-  "loaded_at": "2026-08-21 15:23:00.709000"
+  "row_count": 0,
+  "invocation_id": "07cd61ec-5950-4ed8-b79e-73dbd2165b8f",
+  "loaded_at": "2026-08-21 19:24:57.969000"
  },
  {
   "model_name": "fact_sale",
-  "row_count": 100,
-  "invocation_id": "6e792a16-221d-41fb-b2ce-ac331cc16ab1",
-  "loaded_at": "2026-08-21 15:23:00.397000"
+  "row_count": 0,
+  "invocation_id": "07cd61ec-5950-4ed8-b79e-73dbd2165b8f",
+  "loaded_at": "2026-08-21 19:24:57.480000"
  },
  {
   "model_name": "dim_partition_status",
-  "row_count": 4,
-  "invocation_id": "6e792a16-221d-41fb-b2ce-ac331cc16ab1",
-  "loaded_at": "2026-08-21 15:23:00.367000"
+  "row_count": 0,
+  "invocation_id": "07cd61ec-5950-4ed8-b79e-73dbd2165b8f",
+  "loaded_at": "2026-08-21 19:24:57.478000"
  },
  {
   "model_name": "dim_store",
   "row_count": 5,
-  "invocation_id": "6e792a16-221d-41fb-b2ce-ac331cc16ab1",
-  "loaded_at": "2026-08-21 15:23:00.156000"
- },
- {
-  "model_name": "dm_daily_sales",
-  "row_count": 3,
-  "invocation_id": "982ec3bb-446d-48c0-a307-84666c9c4bf9",
-  "loaded_at": "2026-08-21 15:22:55.395000"
- },
- {
-  "model_name": "dim_partition_status",
-  "row_count": 3,
-  "invocation_id": "982ec3bb-446d-48c0-a307-84666c9c4bf9",
-  "loaded_at": "2026-08-21 15:22:55.108000"
- },
- {
-  "model_name": "fact_sale",
-  "row_count": 69,
-  "invocation_id": "982ec3bb-446d-48c0-a307-84666c9c4bf9",
-  "loaded_at": "2026-08-21 15:22:55.108000"
- },
- {
-  "model_name": "dim_store",
-  "row_count": 5,
-  "invocation_id": "982ec3bb-446d-48c0-a307-84666c9c4bf9",
-  "loaded_at": "2026-08-21 15:22:54.870000"
+  "invocation_id": "07cd61ec-5950-4ed8-b79e-73dbd2165b8f",
+  "loaded_at": "2026-08-21 19:24:57.038000"
  }
 ]
