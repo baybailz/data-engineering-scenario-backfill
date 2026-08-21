@@ -1,23 +1,40 @@
 {
   "repo": "baybailz/data-engineering-scenario-backfill",
   "title": "Backfill",
-  "subtitle": "A bug shipped 30 days ago. Replay the range. Count nothing twice.",
+  "subtitle": "Data engineering scenario · Bailey Thompson",
   "author": "Bailey Thompson",
   "workflow": "pipeline.yml",
   "actions": {
     "run": "load_next",
     "reset": "reset",
     "extra": [
-      { "action": "inject_bug", "label": "Inject bug", "title": "Flip the tax_bug flag. The next load ships a wrong net_amount." },
-      { "action": "fix_and_backfill", "label": "Fix + backfill", "title": "Clear the flag and replay the affected date range only." }
+      {
+        "action": "inject_bug",
+        "label": "Inject bug",
+        "title": "Flip the tax_bug flag. The next load ships a wrong net_amount."
+      },
+      {
+        "action": "fix_and_backfill",
+        "label": "Fix + backfill",
+        "title": "Clear the flag and replay the affected date range only."
+      }
     ]
   },
   "run_label": "Load next day",
   "dbt_select": "tag:scenario",
   "pipeline_steps": [
-    { "key": "python", "label": "Python" },
-    { "key": "dbt",    "label": "dbt build" },
-    { "key": "out",    "label": "Partitions" }
+    {
+      "key": "python",
+      "label": "Python"
+    },
+    {
+      "key": "dbt",
+      "label": "dbt build"
+    },
+    {
+      "key": "out",
+      "label": "Partitions"
+    }
   ],
   "arch_subtitles": {
     "python": "run.py",
@@ -26,10 +43,28 @@
   },
   "landing": {
     "seed": "incoming_sale",
-    "columns": ["sale_id", "store_id", "sale_date", "gross_amount", "tax_amount", "channel"]
+    "columns": [
+      "sale_id",
+      "store_id",
+      "sale_date",
+      "gross_amount",
+      "tax_amount",
+      "channel"
+    ]
   },
   "export": {
-    "tables": ["fact_sale", "dim_store", "dim_partition_status", "dm_daily_sales"],
-    "layers": ["seed", "stage", "transform", "conformed", "datamart"]
+    "tables": [
+      "fact_sale",
+      "dim_store",
+      "dim_partition_status",
+      "dm_daily_sales"
+    ],
+    "layers": [
+      "seed",
+      "stage",
+      "transform",
+      "conformed",
+      "datamart"
+    ]
   }
 }
