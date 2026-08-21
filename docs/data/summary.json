@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-21T19:42:52+00:00",
+ "generated_at": "2026-08-21T19:43:46+00:00",
  "files_loaded": [
   "2026-07-01",
   "2026-07-02",
@@ -25,10 +25,10 @@
   "dim_partition_status": 4,
   "dm_daily_sales": 4
  },
- "net_total": 21294.45,
+ "net_total": 20409.51,
  "partitions_built": 4,
- "partitions_bugged": 1,
- "tax_bug_active": true,
+ "partitions_bugged": 0,
+ "tax_bug_active": false,
  "daily_series": [
   {
    "date": "2026-07-01",
@@ -52,7 +52,7 @@
    "date": "2026-07-04",
    "correct": 5535.4,
    "bugged": 6420.34,
-   "current": 6420.34
+   "current": 5535.4
   }
  ]
 }
