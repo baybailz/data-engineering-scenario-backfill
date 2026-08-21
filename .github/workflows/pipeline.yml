@@ -94,6 +94,8 @@ jobs:
           git add state seeds docs/data scenario.duckdb
           git diff --cached --quiet && echo "nothing changed" || {
             git commit -m "pipeline: $ACTION ($(date -u +%FT%TZ))"
+            # Two dispatches seconds apart must both land: rebase onto whatever arrived first.
+            git pull --rebase -X theirs origin main || true
             git push
           }
 
