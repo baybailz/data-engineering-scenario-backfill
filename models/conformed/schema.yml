@@ -1,0 +1,30 @@
+# Conformed contracts: keys are unique and never null, every status is one
+# of a closed list, and every imported row traces back to an incoming record.
+version: 2
+
+models:
+  - name: dim_customer
+    description: The customer dimension, master plus imported rows.
+    columns:
+      - name: customer_key
+        data_tests: [unique, not_null]
+      - name: customer_id
+        data_tests: [unique, not_null]
+      - name: customer_name
+        data_tests: [not_null]
+  - name: dim_record_status
+    description: Disposition of every incoming record.
+    columns:
+      - name: record_key
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_incoming_customer')
+                field: record_key
+      - name: status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [new, duplicate_of_master, duplicate_within_incoming]

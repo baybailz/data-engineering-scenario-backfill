@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: stg_customer
+    description: Master customers, typed and renamed.
+    columns:
+      - name: customer_id
+        data_tests: [unique, not_null]
+  - name: stg_incoming_customer
+    description: Incoming batch rows, one per line of every loaded file.
+    columns:
+      - name: record_key
+        data_tests: [unique, not_null]
+      - name: customer_id
+        data_tests: [not_null]

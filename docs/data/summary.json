@@ -1,0 +1,17 @@
+{
+ "generated_at": "2026-08-21T18:43:21+00:00",
+ "files_loaded": [
+  "batch_1",
+  "batch_2"
+ ],
+ "files_pending": [],
+ "next_file": null,
+ "row_counts": {
+  "dim_customer": 7,
+  "dim_record_status": 5,
+  "dm_customer_summary": 5
+ },
+ "customers_total": 7,
+ "customers_imported": 3,
+ "duplicates_blocked": 2
+}

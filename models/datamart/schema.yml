@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: dm_customer_summary
+    description: Customers by segment and state, with how many were imported.

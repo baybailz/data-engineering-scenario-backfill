@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: trn_tbl_customer
+    description: One verdict per incoming record.
+    columns:
+      - name: record_key
+        data_tests: [unique, not_null]
+      - name: status
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [new, duplicate_of_master, duplicate_within_incoming]

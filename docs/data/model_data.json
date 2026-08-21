@@ -1,0 +1,375 @@
+{
+ "crm_customer": [
+  {
+   "customer_id": 1001,
+   "customer_name": "Acme Freight",
+   "city": "Atlanta",
+   "state": "GA",
+   "segment": "enterprise"
+  },
+  {
+   "customer_id": 1002,
+   "customer_name": "Blue Ridge Outfitters",
+   "city": "Asheville",
+   "state": "NC",
+   "segment": "smb"
+  },
+  {
+   "customer_id": 1003,
+   "customer_name": "Cobalt Medical",
+   "city": "Charlotte",
+   "state": "NC",
+   "segment": "enterprise"
+  },
+  {
+   "customer_id": 1004,
+   "customer_name": "Delta Farms",
+   "city": "Macon",
+   "state": "GA",
+   "segment": "smb"
+  }
+ ],
+ "dim_customer": [
+  {
+   "customer_key": 2082349533517235128,
+   "customer_id": 1001,
+   "customer_name": "Acme Freight",
+   "city": "Atlanta",
+   "state": "GA",
+   "segment": "enterprise",
+   "source": "crm_customer",
+   "source_record_key": null,
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  },
+  {
+   "customer_key": 2224740934920057559,
+   "customer_id": 1007,
+   "customer_name": "Granite Peak Tools",
+   "city": "Raleigh",
+   "state": "NC",
+   "segment": "smb",
+   "source": "batch_2.csv",
+   "source_record_key": "batch_2:2",
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  },
+  {
+   "customer_key": 2643859965427812131,
+   "customer_id": 1005,
+   "customer_name": "Evergreen Logistics",
+   "city": "Savannah",
+   "state": "GA",
+   "segment": "smb",
+   "source": "batch_1.csv",
+   "source_record_key": "batch_1:2",
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  },
+  {
+   "customer_key": 9207740599426836650,
+   "customer_id": 1003,
+   "customer_name": "Cobalt Medical",
+   "city": "Charlotte",
+   "state": "NC",
+   "segment": "enterprise",
+   "source": "crm_customer",
+   "source_record_key": null,
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  },
+  {
+   "customer_key": 11640297415490393086,
+   "customer_id": 1004,
+   "customer_name": "Delta Farms",
+   "city": "Macon",
+   "state": "GA",
+   "segment": "smb",
+   "source": "crm_customer",
+   "source_record_key": null,
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  },
+  {
+   "customer_key": 15700378863967709691,
+   "customer_id": 1002,
+   "customer_name": "Blue Ridge Outfitters",
+   "city": "Asheville",
+   "state": "NC",
+   "segment": "smb",
+   "source": "crm_customer",
+   "source_record_key": null,
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  },
+  {
+   "customer_key": 16393648638347462290,
+   "customer_id": 1006,
+   "customer_name": "Foothills Brewing",
+   "city": "Greenville",
+   "state": "SC",
+   "segment": "smb",
+   "source": "batch_1.csv",
+   "source_record_key": "batch_1:3",
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  }
+ ],
+ "dim_record_status": [
+  {
+   "record_key": "batch_1:1",
+   "source_file": "batch_1",
+   "row_num": 1,
+   "customer_id": 1003,
+   "status": "duplicate_of_master",
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  },
+  {
+   "record_key": "batch_1:2",
+   "source_file": "batch_1",
+   "row_num": 2,
+   "customer_id": 1005,
+   "status": "new",
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  },
+  {
+   "record_key": "batch_1:3",
+   "source_file": "batch_1",
+   "row_num": 3,
+   "customer_id": 1006,
+   "status": "new",
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  },
+  {
+   "record_key": "batch_2:1",
+   "source_file": "batch_2",
+   "row_num": 1,
+   "customer_id": 1006,
+   "status": "duplicate_within_incoming",
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  },
+  {
+   "record_key": "batch_2:2",
+   "source_file": "batch_2",
+   "row_num": 2,
+   "customer_id": 1007,
+   "status": "new",
+   "dbt_run_timestamp": "2026-08-21 14:43:20.528000-04:00"
+  }
+ ],
+ "dm_customer_summary": [
+  {
+   "segment": "enterprise",
+   "state": "GA",
+   "customers": 1,
+   "imported_customers": 0
+  },
+  {
+   "segment": "enterprise",
+   "state": "NC",
+   "customers": 1,
+   "imported_customers": 0
+  },
+  {
+   "segment": "smb",
+   "state": "GA",
+   "customers": 2,
+   "imported_customers": 1
+  },
+  {
+   "segment": "smb",
+   "state": "NC",
+   "customers": 2,
+   "imported_customers": 1
+  },
+  {
+   "segment": "smb",
+   "state": "SC",
+   "customers": 1,
+   "imported_customers": 1
+  }
+ ],
+ "incoming_customer": [
+  {
+   "source_file": "batch_1",
+   "row_num": 1,
+   "customer_id": 1003,
+   "customer_name": "Cobalt Medical",
+   "city": "Charlotte",
+   "state": "NC",
+   "segment": "enterprise"
+  },
+  {
+   "source_file": "batch_1",
+   "row_num": 2,
+   "customer_id": 1005,
+   "customer_name": "Evergreen Logistics",
+   "city": "Savannah",
+   "state": "GA",
+   "segment": "smb"
+  },
+  {
+   "source_file": "batch_1",
+   "row_num": 3,
+   "customer_id": 1006,
+   "customer_name": "Foothills Brewing",
+   "city": "Greenville",
+   "state": "SC",
+   "segment": "smb"
+  },
+  {
+   "source_file": "batch_2",
+   "row_num": 1,
+   "customer_id": 1006,
+   "customer_name": "Foothills Brewing",
+   "city": "Greenville",
+   "state": "SC",
+   "segment": "enterprise"
+  },
+  {
+   "source_file": "batch_2",
+   "row_num": 2,
+   "customer_id": 1007,
+   "customer_name": "Granite Peak Tools",
+   "city": "Raleigh",
+   "state": "NC",
+   "segment": "smb"
+  }
+ ],
+ "stg_customer": [
+  {
+   "customer_id": 1001,
+   "customer_name": "Acme Freight",
+   "city": "Atlanta",
+   "state": "GA",
+   "segment": "enterprise",
+   "source": "crm_customer"
+  },
+  {
+   "customer_id": 1002,
+   "customer_name": "Blue Ridge Outfitters",
+   "city": "Asheville",
+   "state": "NC",
+   "segment": "smb",
+   "source": "crm_customer"
+  },
+  {
+   "customer_id": 1003,
+   "customer_name": "Cobalt Medical",
+   "city": "Charlotte",
+   "state": "NC",
+   "segment": "enterprise",
+   "source": "crm_customer"
+  },
+  {
+   "customer_id": 1004,
+   "customer_name": "Delta Farms",
+   "city": "Macon",
+   "state": "GA",
+   "segment": "smb",
+   "source": "crm_customer"
+  }
+ ],
+ "stg_incoming_customer": [
+  {
+   "record_key": "batch_1:1",
+   "source_file": "batch_1",
+   "row_num": 1,
+   "customer_id": 1003,
+   "customer_name": "Cobalt Medical",
+   "city": "Charlotte",
+   "state": "NC",
+   "segment": "enterprise"
+  },
+  {
+   "record_key": "batch_1:2",
+   "source_file": "batch_1",
+   "row_num": 2,
+   "customer_id": 1005,
+   "customer_name": "Evergreen Logistics",
+   "city": "Savannah",
+   "state": "GA",
+   "segment": "smb"
+  },
+  {
+   "record_key": "batch_1:3",
+   "source_file": "batch_1",
+   "row_num": 3,
+   "customer_id": 1006,
+   "customer_name": "Foothills Brewing",
+   "city": "Greenville",
+   "state": "SC",
+   "segment": "smb"
+  },
+  {
+   "record_key": "batch_2:1",
+   "source_file": "batch_2",
+   "row_num": 1,
+   "customer_id": 1006,
+   "customer_name": "Foothills Brewing",
+   "city": "Greenville",
+   "state": "SC",
+   "segment": "enterprise"
+  },
+  {
+   "record_key": "batch_2:2",
+   "source_file": "batch_2",
+   "row_num": 2,
+   "customer_id": 1007,
+   "customer_name": "Granite Peak Tools",
+   "city": "Raleigh",
+   "state": "NC",
+   "segment": "smb"
+  }
+ ],
+ "trn_tbl_customer": [
+  {
+   "record_key": "batch_1:1",
+   "source_file": "batch_1",
+   "row_num": 1,
+   "customer_id": 1003,
+   "customer_name": "Cobalt Medical",
+   "city": "Charlotte",
+   "state": "NC",
+   "segment": "enterprise",
+   "status": "duplicate_of_master"
+  },
+  {
+   "record_key": "batch_1:2",
+   "source_file": "batch_1",
+   "row_num": 2,
+   "customer_id": 1005,
+   "customer_name": "Evergreen Logistics",
+   "city": "Savannah",
+   "state": "GA",
+   "segment": "smb",
+   "status": "new"
+  },
+  {
+   "record_key": "batch_1:3",
+   "source_file": "batch_1",
+   "row_num": 3,
+   "customer_id": 1006,
+   "customer_name": "Foothills Brewing",
+   "city": "Greenville",
+   "state": "SC",
+   "segment": "smb",
+   "status": "new"
+  },
+  {
+   "record_key": "batch_2:1",
+   "source_file": "batch_2",
+   "row_num": 1,
+   "customer_id": 1006,
+   "customer_name": "Foothills Brewing",
+   "city": "Greenville",
+   "state": "SC",
+   "segment": "enterprise",
+   "status": "duplicate_within_incoming"
+  },
+  {
+   "record_key": "batch_2:2",
+   "source_file": "batch_2",
+   "row_num": 2,
+   "customer_id": 1007,
+   "customer_name": "Granite Peak Tools",
+   "city": "Raleigh",
+   "state": "NC",
+   "segment": "smb",
+   "status": "new"
+  }
+ ]
+}
