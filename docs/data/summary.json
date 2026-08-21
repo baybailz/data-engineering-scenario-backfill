@@ -1,12 +1,11 @@
 {
- "generated_at": "2026-08-21T19:43:46+00:00",
- "files_loaded": [
+ "generated_at": "2026-08-21T19:44:35+00:00",
+ "files_loaded": [],
+ "files_pending": [
   "2026-07-01",
   "2026-07-02",
   "2026-07-03",
-  "2026-07-04"
- ],
- "files_pending": [
+  "2026-07-04",
   "2026-07-05",
   "2026-07-06",
   "2026-07-07",
@@ -18,41 +17,16 @@
   "2026-07-13",
   "2026-07-14"
  ],
- "next_file": "2026-07-05",
+ "next_file": "2026-07-01",
  "row_counts": {
-  "fact_sale": 100,
+  "fact_sale": 0,
   "dim_store": 5,
-  "dim_partition_status": 4,
-  "dm_daily_sales": 4
+  "dim_partition_status": 0,
+  "dm_daily_sales": 0
  },
- "net_total": 20409.51,
- "partitions_built": 4,
+ "net_total": 0.0,
+ "partitions_built": 0,
  "partitions_bugged": 0,
  "tax_bug_active": false,
- "daily_series": [
-  {
-   "date": "2026-07-01",
-   "correct": 4727.88,
-   "bugged": null,
-   "current": 4727.88
-  },
-  {
-   "date": "2026-07-02",
-   "correct": 5793.09,
-   "bugged": null,
-   "current": 5793.09
-  },
-  {
-   "date": "2026-07-03",
-   "correct": 4353.14,
-   "bugged": null,
-   "current": 4353.14
-  },
-  {
-   "date": "2026-07-04",
-   "correct": 5535.4,
-   "bugged": 6420.34,
-   "current": 5535.4
-  }
- ]
+ "daily_series": []
 }
