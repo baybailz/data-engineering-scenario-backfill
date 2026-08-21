@@ -3,6 +3,8 @@
 summary(con, ctx)  -> dict merged into summary.json (headline numbers)
 history(con, ctx)  -> dict: one cell per pipeline step key in scenario.json,
                       plus anything else the console's log row wants.
+extra(ctx)         -> optional: {"name.json": payload} for anything else the
+                      page wants (a V1 file set, a scorecard, a golden set).
 ctx has: action, loaded, queue, next_file, passed, failed, cfg
 """
 

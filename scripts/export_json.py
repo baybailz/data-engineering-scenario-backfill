@@ -154,7 +154,9 @@ def main() -> None:
     models = {"files": [{"path": p.relative_to(ROOT).as_posix(), "sql": p.read_text()}
                         for p in files], "compiled": compiled}
 
+    extra = hooks.extra(ctx) if hasattr(hooks, "extra") else {}
     for name, payload in [
+        *extra.items(),
         ("summary.json", summary), ("tables.json", tables),
         ("next_file.json", {"name": next_file, "rows": next_rows}),
         ("logs.json", logs), ("models.json", models),

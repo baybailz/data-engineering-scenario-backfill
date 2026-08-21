@@ -580,6 +580,7 @@
   .dagnode.n-dm{fill:var(--warn-soft);stroke:var(--warn-line)}
   .vnode.n-dm{background:var(--warn-soft);border-color:var(--warn-line)}
   .sw.dm{background:var(--warn-soft);border-color:var(--warn-line)}
+  .extraActs{display:inline-flex;gap:8px;margin-right:10px}
 </style>
 </head>
 <body>
@@ -978,6 +979,9 @@ function pipe(){
 }
 function cta(){
   const s=D.summary,b=$('ctaBtn');if(!b)return;
+  const ex=$('extraActs');
+  if(ex){ex.innerHTML=(CFG.actions.extra||[]).map(a=>`<button class="btn btn-ghost" data-act="${esc(a.action)}" ${running||!token()?'disabled':''} title="${esc(a.title||'')}">${esc(a.label)}</button>`).join('');
+    ex.querySelectorAll('[data-act]').forEach(x=>x.onclick=()=>runPipeline(x.dataset.act));}
   b.classList.remove('attn');b.disabled=false;
   if(running){b.innerHTML='<span class="spin"></span>Running…';b.disabled=true;b.onclick=null;return;}
   const hasQueue=(s.files_loaded||[]).length+(s.files_pending||[]).length>0;
@@ -998,7 +1002,7 @@ function renderPanel(){
 function renderConsole(){
   const P=window.PANELS;
   $('main').innerHTML=`<section class="pipe-card"><div class="pipehead"><div class="pipeh-l"><div class="pipetitle">Data pipeline</div></div>
-      <button class="btn btn-primary cta" id="ctaBtn">Run</button></div>
+      <span class="extraActs" id="extraActs"></span><button class="btn btn-primary cta" id="ctaBtn">Run</button></div>
     <div class="piperow"><aside class="srcbox"><div class="srclabel">Source</div><div class="queue" id="queue"></div></aside><div class="pipe" id="pipe"></div></div>
     <div class="runline" id="runline" style="display:none"></div></section>
     <div class="tabs" role="tablist" id="tabs">${P.tabs.map(t=>`<button class="tab" role="tab" data-tab="${esc(t.key)}"><span class="mono">${esc(t.label)}</span><span class="cnt" id="cnt-${esc(t.key)}"></span></button>`).join('')}</div>
