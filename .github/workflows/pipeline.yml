@@ -1,6 +1,15 @@
-# One dispatchable workflow = one pipeline run:
-# land the next file -> dbt build -> publish JSON for the page.
-# Fails closed: a red build commits nothing.
+# One dispatchable workflow = one pipeline run: land/inject/backfill via
+# Python, dbt build, publish JSON for the page.
+#
+# Deviation from the template: the template's pipeline "fails closed", a
+# red build commits nothing. This scenario is about a red build on
+# purpose (inject_bug ships a bad net_amount and a test catches it), and
+# the point of the demo is to show that moment, not hide it. So the dbt
+# build step here always runs to completion (continue-on-error), the
+# export + commit steps always run, and only the last step turns the run
+# red if dbt failed - fail-closed for the data (the bad build commits
+# nothing to conformed beyond what dbt itself wrote), publish-the-evidence
+# for the page (docs/data/*.json always reflects what really happened).
 name: pipeline
 
 on:
@@ -10,7 +19,15 @@ on:
         description: "What to do"
         type: choice
         default: load_next
-        options: [load_next, reset]
+        options: [load_next, inject_bug, fix_and_backfill, reset]
+      backfill_start:
+        description: "Backfill start date (fix_and_backfill only; blank = the recorded bugged range)"
+        type: string
+        default: ""
+      backfill_end:
+        description: "Backfill end date (fix_and_backfill only; blank = the recorded bugged range)"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -24,6 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ACTION: ${{ inputs.action || 'load_next' }}
+      BACKFILL_START: ${{ inputs.backfill_start }}
+      BACKFILL_END: ${{ inputs.backfill_end }}
       DBT_PROFILES_DIR: .
     steps:
       - uses: actions/checkout@v4
@@ -33,18 +52,24 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
 
-      # shell: bash => pipefail, so a failing step still fails through tee
-      - name: Land the next file (Python)
+      - name: Land / inject / backfill (Python)
         shell: bash
-        run: python scripts/run.py --action "$ACTION" 2>&1 | tee /tmp/python.log
+        run: |
+          python scripts/run.py --action "$ACTION" \
+            --backfill-start "$BACKFILL_START" --backfill-end "$BACKFILL_END" \
+            2>&1 | tee /tmp/python.log
 
-      - name: dbt build (seeds + models + tests)
+      - name: dbt build (models + tests)
+        id: dbt_build
         shell: bash
         run: |
           SELECT=$(python -c "import json;print(json.load(open('docs/scenario.json'))['dbt_select'])")
           FLAGS=""; [ "$ACTION" = "reset" ] && FLAGS="--full-refresh"
-          echo "+ dbt build --select $SELECT $FLAGS"
-          dbt build --select "$SELECT" $FLAGS --no-use-colors 2>&1 | tee /tmp/dbt.log
+          VARS=$(cat state/dbt_vars.json)
+          echo "+ dbt build --select $SELECT --vars '$VARS' $FLAGS"
+          set +e
+          dbt build --select "$SELECT" --vars "$VARS" $FLAGS --no-use-colors 2>&1 | tee /tmp/dbt.log
+          echo "status=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
 
       - name: Export JSON for the page
         run: python scripts/export_json.py --action "$ACTION" --python-log /tmp/python.log --dbt-log /tmp/dbt.log
@@ -54,6 +79,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add state seeds docs/data
-          git diff --cached --quiet && echo "nothing changed" && exit 0
-          git commit -m "pipeline: $ACTION ($(date -u +%FT%TZ))"
-          git push
+          git diff --cached --quiet && echo "nothing changed" || {
+            git commit -m "pipeline: $ACTION ($(date -u +%FT%TZ))"
+            git push
+          }
+
+      - name: Fail the run if dbt build failed
+        if: steps.dbt_build.outputs.status != '0'
+        run: |
+          echo "dbt build exited ${{ steps.dbt_build.outputs.status }} - results are still published above."
+          exit 1

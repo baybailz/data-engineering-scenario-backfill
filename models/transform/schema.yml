@@ -1,14 +1,12 @@
 version: 2
 
 models:
-  - name: trn_tbl_customer
-    description: One verdict per incoming record.
+  - name: trn_tbl_sale
+    description: >
+      Net amount per incoming sale row. Rebuilt in full from every currently
+      landed day, so it always reflects the current tax_bug state.
     columns:
-      - name: record_key
+      - name: sale_id
         data_tests: [unique, not_null]
-      - name: status
-        data_tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: [new, duplicate_of_master, duplicate_within_incoming]
+      - name: net_amount
+        data_tests: [not_null]

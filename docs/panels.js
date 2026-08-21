@@ -1,32 +1,31 @@
-/* Console tabs for this scenario.
-   tabs:    [{key, label, count()}]  in display order
-   render:  {key: () => html}        S.tablePanel / S.incomingPanel are generic
-   afterRun(action) -> tab key to show when a run finishes (optional)
-   toast(action, before, after) -> message after a run (optional) */
+/* Console tabs for the backfill scenario. */
 'use strict';
-const statusBadge = v => S.badge(v, v==='new'?'b-new':'b-dup', v==='new'?S.ICO.check:S.ICO.copy);
+const actionBadge = a => S.badge(a, a==='fix_and_backfill'?'b-new':(a==='inject_bug'?'b-dup':'b-crm'));
 
 window.PANELS = {
   tabs: [
     {key:'incoming', label:'incoming/*.csv', count:()=>S.D.next?.name?S.D.next.rows.length:0},
-    {key:'dim_customer', label:'dim_customer', count:()=>(S.D.tables.dim_customer||[]).length},
-    {key:'dim_record_status', label:'dim_record_status', count:()=>(S.D.tables.dim_record_status||[]).length},
-    {key:'dm_customer_summary', label:'dm_customer_summary', count:()=>(S.D.tables.dm_customer_summary||[]).length},
+    {key:'dim_partition_status', label:'dim_partition_status', count:()=>(S.D.tables.dim_partition_status||[]).length},
+    {key:'fact_sale', label:'fact_sale', count:()=>(S.D.tables.fact_sale||[]).length},
+    {key:'dm_daily_sales', label:'dm_daily_sales', count:()=>(S.D.tables.dm_daily_sales||[]).length},
   ],
   render: {
     incoming: () => S.incomingPanel(),
-    dim_customer: () => S.tablePanel('dim_customer', 'the customer dimension after every load so far',
-      {rowClass: r => r.source!=='crm_customer' ? 'rowimp' : ''}),
-    dim_record_status: () => S.tablePanel('dim_record_status', 'one verdict per incoming record',
-      {cell: (c,v) => c==='status' ? statusBadge(v) : S.esc(S.fmtCell(v))}),
-    dm_customer_summary: () => S.tablePanel('dm_customer_summary', 'what BI reads'),
+    dim_partition_status: () => S.tablePanel('dim_partition_status', 'one watermark row per sale_date',
+      {rowClass: r => r.bugged ? 'rowdup' : '', cell: (c,v,r) => c==='built_by_action' ? actionBadge(v) : S.esc(S.fmtCell(v))}),
+    fact_sale: () => S.tablePanel('fact_sale', 'one row per sale, net_amount as last built'),
+    dm_daily_sales: () => S.tablePanel('dm_daily_sales', 'net total per day, what BI reads',
+      {rowClass: r => r.net_total > r.gross_total ? 'rowdup' : '',
+       cell: (c,v,r) => c==='net_total'
+         ? `${S.meter(r.gross_total ? Math.min(1, v/r.gross_total) : 0)}${r.net_total > r.gross_total ? ' <span title="net exceeds gross - tax_bug was live for this day">▲</span>' : ''}`
+         : S.esc(S.fmtCell(v))}),
   },
-  afterRun: action => action===S.CFG.actions.reset ? 'incoming' : 'dim_customer',
+  afterRun: action => action===S.CFG.actions.reset ? 'incoming' : 'dim_partition_status',
   toast: (action, before, after) => {
     if (action===S.CFG.actions.reset) return 'Demo reset ↺';
-    const parts=[], add=(n,w)=>{ if(n>0) parts.push(`<b>${n}</b> ${w}`); };
-    add((after.customers_total??0)-(before.customers_total??0), 'new customers imported');
-    add((after.duplicates_blocked??0)-(before.duplicates_blocked??0), 'duplicates blocked');
-    return parts.length ? parts.join(' · ') : 'Load complete';
+    if (action==='inject_bug') return 'tax_bug flag set ⚠';
+    if (action==='fix_and_backfill') return `Backfill done · <b>${after.partitions_bugged??0}</b> partitions still bugged`;
+    const delta = (after.net_total??0)-(before.net_total??0);
+    return `Load complete · net total ${delta>=0?'+':''}${delta.toFixed(2)}`;
   },
 };

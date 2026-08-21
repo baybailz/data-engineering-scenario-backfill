@@ -1,23 +1,35 @@
 {
-  "repo": "baybailz/data-engineering-scenario-template",
-  "title": "Scenario Template",
-  "subtitle": "Data engineering scenario · Bailey Thompson",
+  "repo": "baybailz/data-engineering-scenario-backfill",
+  "title": "Backfill",
+  "subtitle": "A bug shipped 30 days ago. Replay the range. Count nothing twice.",
   "author": "Bailey Thompson",
   "workflow": "pipeline.yml",
-  "actions": { "run": "load_next", "reset": "reset" },
-  "run_label": "Run data pipeline",
+  "actions": {
+    "run": "load_next",
+    "reset": "reset",
+    "extra": [
+      { "action": "inject_bug", "label": "Inject bug", "title": "Flip the tax_bug flag. The next load ships a wrong net_amount." },
+      { "action": "fix_and_backfill", "label": "Fix + backfill", "title": "Clear the flag and replay the affected date range only." }
+    ]
+  },
+  "run_label": "Load next day",
   "dbt_select": "tag:scenario",
   "pipeline_steps": [
     { "key": "python", "label": "Python" },
     { "key": "dbt",    "label": "dbt build" },
-    { "key": "out",    "label": "Conformed tables" }
+    { "key": "out",    "label": "Partitions" }
   ],
+  "arch_subtitles": {
+    "python": "run.py",
+    "dbt": "--select tag:scenario",
+    "out": "partitions"
+  },
   "landing": {
-    "seed": "incoming_customer",
-    "columns": ["customer_id", "customer_name", "city", "state", "segment"]
+    "seed": "incoming_sale",
+    "columns": ["sale_id", "store_id", "sale_date", "gross_amount", "tax_amount", "channel"]
   },
   "export": {
-    "tables": ["dim_customer", "dim_record_status", "dm_customer_summary"],
+    "tables": ["fact_sale", "dim_store", "dim_partition_status", "dm_daily_sales"],
     "layers": ["seed", "stage", "transform", "conformed", "datamart"]
   }
 }

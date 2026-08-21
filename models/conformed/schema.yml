@@ -1,30 +1,41 @@
-# Conformed contracts: keys are unique and never null, every status is one
-# of a closed list, and every imported row traces back to an incoming record.
+# Conformed contracts: keys are unique and never null, every enum is one of
+# a closed list, and no imported sale can share a fact row with itself.
 version: 2
 
 models:
-  - name: dim_customer
-    description: The customer dimension, master plus imported rows.
+  - name: dim_store
+    description: The store dimension.
     columns:
-      - name: customer_key
+      - name: store_key
         data_tests: [unique, not_null]
-      - name: customer_id
+      - name: store_id
         data_tests: [unique, not_null]
-      - name: customer_name
-        data_tests: [not_null]
-  - name: dim_record_status
-    description: Disposition of every incoming record.
+  - name: fact_sale
+    description: One row per sale, net_amount as computed by the last build.
     columns:
-      - name: record_key
+      - name: sale_key
+        data_tests: [unique, not_null]
+      - name: sale_id
+        data_tests: [unique, not_null]
+      - name: store_key
         data_tests:
-          - unique
           - not_null
           - relationships:
               arguments:
-                to: ref('stg_incoming_customer')
-                field: record_key
-      - name: status
+                to: ref('dim_store')
+                field: store_key
+      - name: channel
         data_tests:
           - accepted_values:
               arguments:
-                values: [new, duplicate_of_master, duplicate_within_incoming]
+                values: [online, in_store, phone]
+  - name: dim_partition_status
+    description: One row per sale_date, the watermark for what got rebuilt when.
+    columns:
+      - name: sale_date
+        data_tests: [unique, not_null]
+      - name: built_by_action
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [load_next, inject_bug, fix_and_backfill, reset]

@@ -1,25 +1,24 @@
 version: 2
 
 seeds:
-  - name: crm_customer
-    description: Master customer list. Master data always wins.
+  - name: crm_store
+    description: Master store list. Master data always wins.
     config:
       column_types:
-        customer_id: integer
-        customer_name: varchar
-        city: varchar
-        state: varchar
-        segment: varchar
-  - name: incoming_customer
+        store_id: varchar
+        store_name: varchar
+        region: varchar
+  - name: incoming_sale
     description: >
-      Landing table for incoming batches. Rebuilt by scripts/run.py from
-      state/loaded_files.json on every run, so it is a pure function of state.
+      Landing table for incoming daily sale files. Rebuilt by scripts/run.py
+      from state/loaded_files.json on every run, so it is a pure function of
+      state, not an append-only log.
     config:
       column_types:
         source_file: varchar
-        row_num: integer
-        customer_id: integer
-        customer_name: varchar
-        city: varchar
-        state: varchar
-        segment: varchar
+        sale_id: varchar
+        store_id: varchar
+        sale_date: date
+        gross_amount: decimal(10,2)
+        tax_amount: decimal(10,2)
+        channel: varchar

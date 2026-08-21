@@ -6,7 +6,7 @@ on:
   pull_request:
   push:
     branches: [main]
-    paths-ignore: ["docs/data/**", "state/**", "seeds/incoming_*.csv"]
+    paths-ignore: ["docs/data/**", "state/**", "seeds/incoming_sale.csv"]
 
 permissions:
   contents: read

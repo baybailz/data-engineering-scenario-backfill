@@ -1,0 +1,6 @@
+{
+  "tax_bug": false,
+  "backfill_start": "2026-07-04",
+  "backfill_end": "2026-07-04",
+  "action_label": "load_next"
+}

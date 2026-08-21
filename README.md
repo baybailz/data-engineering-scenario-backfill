@@ -1,72 +1,71 @@
-# data-engineering-scenario-template
+# A bug shipped 30 days ago. Replay the range. Count nothing twice.
 
-The template behind every `data-engineering-scenario-*` repo: a data pipeline you
-can run from a web page. The page is static (GitHub Pages); the **Run** button
-dispatches a GitHub Actions workflow that lands the next incoming file, runs
-`dbt build` (models *and* tests) against DuckDB, and commits the results back as
-JSON for the page to render. No servers, no keys beyond a fine-grained PAT in the
-owner's browser, no cost.
+Daily sales files land, a transform computes `net_amount`, a fact table is
+partitioned by `sale_date`. Someone flips the sign on the tax term. It ships
+for a few days before a test catches it. A targeted backfill replays only
+the days the bug touched - not the whole table, not twice.
 
-**[Live demo →](https://baybailz.github.io/data-engineering-scenario-template/)**
+**[Live demo →](https://baybailz.github.io/data-engineering-scenario-backfill/)** — a
+presentation and a working console. The buttons dispatch a GitHub Actions
+workflow that runs the real pipeline and publishes the result back to the page.
 
-## What you get
+## The hard part
+
+`net_amount` should always be `gross_amount - tax_amount`. With the bug on,
+`trn_tbl_sale` computes `gross_amount + tax_amount` instead - a three-line
+`case` flip, easy to miss in review, and every day it stays on ships a total
+that's too high. `assert_net_never_exceeds_gross` catches it: `net_amount`
+can never exceed `gross_amount` since tax is never negative, so any row
+where it does proves the sign is wrong.
+
+The fix is not "rebuild everything." `fact_sale` is incremental with
+`incremental_strategy='delete+insert'` on `sale_date`; a backfill run passes
+`--vars '{"backfill_start":...,"backfill_end":...}'` and only that range is
+deleted and reinserted. Days outside it are never read. Running the same
+backfill twice deletes and reinserts the same rows - the second run changes
+nothing, which `assert_no_duplicate_sale_ids_after_backfill` and
+`dim_partition_status`'s unchanged `last_built_at` both prove.
+
+The pipeline also deviates from this series' usual "fails closed" rule on
+purpose: `inject_bug` and the load after it are meant to turn the run red,
+and the demo's whole point is showing that moment - so this workflow always
+exports and commits `docs/data/*.json`, then fails the run afterward if
+`dbt build` failed. The data is still fail-closed (a red test is real); the
+page just doesn't hide it.
+
+## How it works
+
+1. **Land** - `scripts/run.py` stages one day's `incoming/*.csv` into the
+   `incoming_sale` seed and records what's loaded in `state/`.
+2. **Stage** - `stg_sale`, `stg_store` rename and type, no logic.
+3. **Transform** - `trn_tbl_sale` computes `net_amount`, rebuilt in full from
+   every currently landed day so it always reflects the current bug state.
+4. **Conform** - `fact_sale` and `dim_partition_status` are incremental,
+   delete+insert, scoped to `[backfill_start, backfill_end]` - one day for a
+   normal load, a wider range for a backfill, everything for `--full-refresh`.
+5. **Publish** - `dm_daily_sales` is what BI reads; `scripts/export_json.py`
+   writes `docs/data/*.json` for the console, whether the build passed or not.
+
+## Actions
+
+- **Load next day** - lands the next `incoming/*.csv`, builds that one partition.
+- **Inject bug** - flips `state/config.json`'s `tax_bug` flag. No data changes
+  until the next load ships a wrong number.
+- **Fix + backfill** - clears the flag, replays the recorded bugged date
+  range. No parameters needed from the page; the range comes from state.
+- **Reset** - flag off, queue cleared, `--full-refresh`.
+
+## Layout
 
 ```
-docs/index.html        the shell: presentation deck + demo console (do not edit per scenario)
-docs/slides.js         the slides for THIS scenario
-docs/panels.js         the console tabs for THIS scenario
-docs/scenario.json     title, repo, pipeline steps, which tables to export
-scripts/run.py         ingest step: incoming/*.csv -> landing seed, queue in state/
-scripts/export_json.py publishes docs/data/*.json (summary, tables, logs, code, lineage, audit)
-scripts/scenario.py    two hooks: headline numbers + the log row for a run
-models/                stage -> transform -> conformed -> datamart (see CONVENTIONS.md)
-macros/                surrogate_key(), metadata_audit()
-tests/                 singular tests
-.github/workflows/pipeline.yml   the dispatchable run
-.github/workflows/ci.yml         PR gate: sqlfluff + dbt build + export smoke test
-.github/actions/ollama           local LLM on the runner, model blobs cached (for the AI scenarios)
-.github/workflows/ollama-smoke.yml  proves the LLM path and reports tok/s
+incoming/           daily sale CSVs waiting to be loaded, 2026-07-01..14
+scripts/            run.py (land/inject/backfill), scenario.py (log + summary hooks)
+seeds/              crm_store (master), incoming_sale (rebuilt landing table)
+models/stage/       stg_sale · stg_store - rename and type only
+models/transform/   trn_tbl_sale - the net_amount logic and the bug toggle
+models/conformed/   fact_sale · dim_store · dim_partition_status
+models/datamart/    dm_daily_sales - what BI reads
+tests/              assert_net_never_exceeds_gross · assert_no_duplicate_sale_ids_after_backfill
+state/               loaded files, the tax_bug flag, the recorded bugged range
+docs/                the presentation and console, published by Pages
 ```
-
-## Start a new scenario
-
-1. **Use this template** on GitHub → name it `data-engineering-scenario-<topic>`.
-2. Settings → Pages → Deploy from branch `main`, folder `/docs`.
-3. Edit `docs/scenario.json` (repo, title, steps, export tables) and the `<meta>` tags
-   at the top of `docs/index.html`.
-4. Replace the seeds, `incoming/*.csv`, and the models. Keep the layer folders.
-5. Rewrite `docs/slides.js` and `docs/panels.js`. `S.tablePanel(name, hint)` renders any
-   exported table; `S.incomingPanel()` renders the queue; `S.svgDag()` draws lineage from
-   the manifest. Adjust `scripts/scenario.py` so the log row says something true.
-6. Run the workflow once (`reset`) so `docs/data/` exists, then open the page.
-7. To drive it from the page: gear icon → paste a fine-grained PAT scoped to this repo
-   with *Actions: read & write* and *Contents: read*. Visitors without a token see a
-   locked button and the published state.
-
-Locally:
-
-```bash
-python -m venv .venv && .venv/bin/pip install -r requirements.txt
-export DBT_PROFILES_DIR=.
-.venv/bin/python scripts/run.py --action reset && .venv/bin/dbt build --full-refresh
-.venv/bin/python scripts/run.py --action load_next && .venv/bin/dbt build --select tag:scenario
-.venv/bin/python scripts/export_json.py --action load_next
-(cd docs && python -m http.server 8000)   # http://localhost:8000
-```
-
-## Using a local LLM in a scenario
-
-```yaml
-- uses: ./.github/actions/ollama
-  with: { model: "qwen2.5:3b" }
-- run: curl -s localhost:11434/api/generate -d '{"model":"qwen2.5:3b","format":"json","stream":false,"prompt":"..."}'
-```
-
-Free, keyless, runs on `ubuntu-latest`. The first run pulls the model (~2 GB);
-later runs restore it from the Actions cache. Dispatch `ollama-smoke` to see timings.
-
-## Conventions
-
-See [CONVENTIONS.md](CONVENTIONS.md): layers, keys, tests, SQL shape, and workflow,
-with the places where this series deliberately departs from the enterprise standard
-it grew out of.

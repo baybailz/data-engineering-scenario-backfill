@@ -1,15 +1,22 @@
 version: 2
 
 models:
-  - name: stg_customer
-    description: Master customers, typed and renamed.
+  - name: stg_store
+    description: Master stores, typed and renamed.
     columns:
-      - name: customer_id
+      - name: store_id
         data_tests: [unique, not_null]
-  - name: stg_incoming_customer
-    description: Incoming batch rows, one per line of every loaded file.
+  - name: stg_sale
+    description: Landing rows for every loaded daily sale file.
     columns:
-      - name: record_key
+      - name: sale_id
         data_tests: [unique, not_null]
-      - name: customer_id
+      - name: store_id
         data_tests: [not_null]
+      - name: sale_date
+        data_tests: [not_null]
+      - name: channel
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [online, in_store, phone]
