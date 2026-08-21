@@ -10,6 +10,13 @@
 # red if dbt failed - fail-closed for the data (the bad build commits
 # nothing to conformed beyond what dbt itself wrote), publish-the-evidence
 # for the page (docs/data/*.json always reflects what really happened).
+#
+# Second deviation: scenario.duckdb is committed (see .gitignore), not
+# rebuilt from scratch every run. The whole point of this scenario is a
+# bounded, incremental backfill - fact_sale and dim_partition_status only
+# rewrite the partitions in [backfill_start, backfill_end]. That only means
+# anything if the warehouse persists between runs; a fresh database on
+# every dispatch would make every build a de facto full rebuild.
 name: pipeline
 
 on:
@@ -78,7 +85,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state seeds docs/data
+          git add state seeds docs/data scenario.duckdb
           git diff --cached --quiet && echo "nothing changed" || {
             git commit -m "pipeline: $ACTION ($(date -u +%FT%TZ))"
             git push

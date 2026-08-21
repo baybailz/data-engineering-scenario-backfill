@@ -6,40 +6,40 @@
    "store_id": "ST-01",
    "store_name": "Riverside Market",
    "region": "Southeast",
-   "loaded_at": "2026-08-21 15:26:46.320000-04:00",
-   "dbt_run_timestamp": "2026-08-21 15:26:46.320000-04:00"
+   "loaded_at": "2026-08-21 15:31:57.462000-04:00",
+   "dbt_run_timestamp": "2026-08-21 15:31:57.462000-04:00"
   },
   {
    "store_key": 2327920453883448302,
    "store_id": "ST-02",
    "store_name": "Harbor Point",
    "region": "Northeast",
-   "loaded_at": "2026-08-21 15:26:46.320000-04:00",
-   "dbt_run_timestamp": "2026-08-21 15:26:46.320000-04:00"
+   "loaded_at": "2026-08-21 15:31:57.462000-04:00",
+   "dbt_run_timestamp": "2026-08-21 15:31:57.462000-04:00"
   },
   {
    "store_key": 17763199528127575263,
    "store_id": "ST-03",
    "store_name": "Prairie Crossing",
    "region": "Midwest",
-   "loaded_at": "2026-08-21 15:26:46.320000-04:00",
-   "dbt_run_timestamp": "2026-08-21 15:26:46.320000-04:00"
+   "loaded_at": "2026-08-21 15:31:57.462000-04:00",
+   "dbt_run_timestamp": "2026-08-21 15:31:57.462000-04:00"
   },
   {
    "store_key": 15934552467445253649,
    "store_id": "ST-04",
    "store_name": "Desert Ridge",
    "region": "Southwest",
-   "loaded_at": "2026-08-21 15:26:46.320000-04:00",
-   "dbt_run_timestamp": "2026-08-21 15:26:46.320000-04:00"
+   "loaded_at": "2026-08-21 15:31:57.462000-04:00",
+   "dbt_run_timestamp": "2026-08-21 15:31:57.462000-04:00"
   },
   {
    "store_key": 1513165664181054485,
    "store_id": "ST-05",
    "store_name": "Cascade Corner",
    "region": "West",
-   "loaded_at": "2026-08-21 15:26:46.320000-04:00",
-   "dbt_run_timestamp": "2026-08-21 15:26:46.320000-04:00"
+   "loaded_at": "2026-08-21 15:31:57.462000-04:00",
+   "dbt_run_timestamp": "2026-08-21 15:31:57.462000-04:00"
   }
  ],
  "dim_partition_status": [],
