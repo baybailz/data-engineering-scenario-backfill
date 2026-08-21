@@ -26,12 +26,10 @@ backfill twice deletes and reinserts the same rows, so the second run changes
 nothing, which `assert_no_duplicate_sale_ids_after_backfill` and
 `dim_partition_status`'s unchanged `last_built_at` both prove.
 
-The pipeline also deviates from this series' usual "fails closed" rule on
-purpose: `inject_bug` and the load after it are meant to turn the run red,
-and the demo's whole point is showing that moment, so this workflow always
-exports and commits `docs/data/*.json`, then fails the run afterward if
-`dbt build` failed. The data is still fail-closed (a red test is real); the
-page just doesn't hide it.
+One deliberate deviation from the series' fail-closed rule: `inject_bug` and
+the load after it are meant to turn the run red. The workflow exports and
+commits `docs/data/*.json` first, then fails the run if `dbt build` failed.
+The red test still blocks the merge; the page just does not hide it.
 
 ## How it works
 
