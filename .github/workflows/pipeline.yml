@@ -71,7 +71,13 @@ jobs:
         shell: bash
         run: |
           SELECT=$(python -c "import json;print(json.load(open('docs/scenario.json'))['dbt_select'])")
-          FLAGS=""; [ "$ACTION" = "reset" ] && FLAGS="--full-refresh"
+          FLAGS=""
+          # reset rebuilds everything from scratch. inject_bug also needs a
+          # full-refresh: it lands no new file, so the only way the already
+          # -loaded partitions recompute wrong on this same run (not the
+          # next one) is to force the whole incremental layer to rebuild.
+          [ "$ACTION" = "reset" ] && FLAGS="--full-refresh"
+          [ "$ACTION" = "inject_bug" ] && FLAGS="--full-refresh"
           VARS=$(cat state/dbt_vars.json)
           echo "+ dbt build --select $SELECT --vars '$VARS' $FLAGS"
           set +e
