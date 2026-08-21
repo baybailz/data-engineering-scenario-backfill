@@ -1,6 +1,1 @@
 source_file,row_num,customer_id,customer_name,city,state,segment
-batch_1,1,1003,Cobalt Medical,Charlotte,NC,enterprise
-batch_1,2,1005,Evergreen Logistics,Savannah,GA,smb
-batch_1,3,1006,Foothills Brewing,Greenville,SC,smb
-batch_2,1,1006,Foothills Brewing,Greenville,SC,enterprise
-batch_2,2,1007,Granite Peak Tools,Raleigh,NC,smb

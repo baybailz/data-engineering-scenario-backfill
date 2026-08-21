@@ -1,6 +1,24 @@
 {
  "nodes": [
   {
+   "id": "trn_tbl_customer",
+   "layer": "transform",
+   "type": "model",
+   "path": "models/transform/trn_tbl_customer.sql"
+  },
+  {
+   "id": "stg_incoming_customer",
+   "layer": "stage",
+   "type": "model",
+   "path": "models/stage/stg_incoming_customer.sql"
+  },
+  {
+   "id": "stg_customer",
+   "layer": "stage",
+   "type": "model",
+   "path": "models/stage/stg_customer.sql"
+  },
+  {
    "id": "dim_customer",
    "layer": "conformed",
    "type": "model",
@@ -19,24 +37,6 @@
    "path": "models/datamart/dm_customer_summary.sql"
   },
   {
-   "id": "trn_tbl_customer",
-   "layer": "transform",
-   "type": "model",
-   "path": "models/transform/trn_tbl_customer.sql"
-  },
-  {
-   "id": "stg_customer",
-   "layer": "stage",
-   "type": "model",
-   "path": "models/stage/stg_customer.sql"
-  },
-  {
-   "id": "stg_incoming_customer",
-   "layer": "stage",
-   "type": "model",
-   "path": "models/stage/stg_incoming_customer.sql"
-  },
-  {
    "id": "crm_customer",
    "layer": "seed",
    "type": "seed",
@@ -52,6 +52,22 @@
  "edges": [
   [
    "stg_customer",
+   "trn_tbl_customer"
+  ],
+  [
+   "stg_incoming_customer",
+   "trn_tbl_customer"
+  ],
+  [
+   "incoming_customer",
+   "stg_incoming_customer"
+  ],
+  [
+   "crm_customer",
+   "stg_customer"
+  ],
+  [
+   "stg_customer",
    "dim_customer"
   ],
   [
@@ -65,22 +81,6 @@
   [
    "dim_customer",
    "dm_customer_summary"
-  ],
-  [
-   "stg_customer",
-   "trn_tbl_customer"
-  ],
-  [
-   "stg_incoming_customer",
-   "trn_tbl_customer"
-  ],
-  [
-   "crm_customer",
-   "stg_customer"
-  ],
-  [
-   "incoming_customer",
-   "stg_incoming_customer"
   ]
  ],
  "layers": [

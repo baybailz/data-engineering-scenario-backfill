@@ -86,7 +86,7 @@
   },
   {
    "path": "seeds/incoming_customer.csv",
-   "sql": "source_file,row_num,customer_id,customer_name,city,state,segment\nbatch_1,1,1003,Cobalt Medical,Charlotte,NC,enterprise\nbatch_1,2,1005,Evergreen Logistics,Savannah,GA,smb\nbatch_1,3,1006,Foothills Brewing,Greenville,SC,smb\nbatch_2,1,1006,Foothills Brewing,Greenville,SC,enterprise\nbatch_2,2,1007,Granite Peak Tools,Raleigh,NC,smb\n"
+   "sql": "source_file,row_num,customer_id,customer_name,city,state,segment\n"
   },
   {
    "path": "seeds/schema.yml",
