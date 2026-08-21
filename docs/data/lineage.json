@@ -1,10 +1,22 @@
 {
  "nodes": [
   {
-   "id": "dim_store",
-   "layer": "conformed",
+   "id": "trn_tbl_sale",
+   "layer": "transform",
    "type": "model",
-   "path": "models/conformed/dim_store.sql"
+   "path": "models/transform/trn_tbl_sale.sql"
+  },
+  {
+   "id": "stg_sale",
+   "layer": "stage",
+   "type": "model",
+   "path": "models/stage/stg_sale.sql"
+  },
+  {
+   "id": "stg_store",
+   "layer": "stage",
+   "type": "model",
+   "path": "models/stage/stg_store.sql"
   },
   {
    "id": "dim_partition_status",
@@ -19,28 +31,16 @@
    "path": "models/conformed/fact_sale.sql"
   },
   {
+   "id": "dim_store",
+   "layer": "conformed",
+   "type": "model",
+   "path": "models/conformed/dim_store.sql"
+  },
+  {
    "id": "dm_daily_sales",
    "layer": "datamart",
    "type": "model",
    "path": "models/datamart/dm_daily_sales.sql"
-  },
-  {
-   "id": "trn_tbl_sale",
-   "layer": "transform",
-   "type": "model",
-   "path": "models/transform/trn_tbl_sale.sql"
-  },
-  {
-   "id": "stg_store",
-   "layer": "stage",
-   "type": "model",
-   "path": "models/stage/stg_store.sql"
-  },
-  {
-   "id": "stg_sale",
-   "layer": "stage",
-   "type": "model",
-   "path": "models/stage/stg_sale.sql"
   },
   {
    "id": "crm_store",
@@ -57,8 +57,16 @@
  ],
  "edges": [
   [
-   "stg_store",
-   "dim_store"
+   "stg_sale",
+   "trn_tbl_sale"
+  ],
+  [
+   "incoming_sale",
+   "stg_sale"
+  ],
+  [
+   "crm_store",
+   "stg_store"
   ],
   [
    "trn_tbl_sale",
@@ -73,20 +81,12 @@
    "fact_sale"
   ],
   [
+   "stg_store",
+   "dim_store"
+  ],
+  [
    "fact_sale",
    "dm_daily_sales"
-  ],
-  [
-   "stg_sale",
-   "trn_tbl_sale"
-  ],
-  [
-   "crm_store",
-   "stg_store"
-  ],
-  [
-   "incoming_sale",
-   "stg_sale"
   ]
  ],
  "layers": [
