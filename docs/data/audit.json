@@ -1,5 +1,23 @@
 [
  {
+  "model_name": "fact_sale",
+  "row_count": 100,
+  "invocation_id": "91174267-34ee-4309-8abf-79048d67d9a9",
+  "loaded_at": "2026-08-21 19:42:51.579000"
+ },
+ {
+  "model_name": "dim_partition_status",
+  "row_count": 4,
+  "invocation_id": "91174267-34ee-4309-8abf-79048d67d9a9",
+  "loaded_at": "2026-08-21 19:42:51.497000"
+ },
+ {
+  "model_name": "dim_store",
+  "row_count": 5,
+  "invocation_id": "91174267-34ee-4309-8abf-79048d67d9a9",
+  "loaded_at": "2026-08-21 19:42:51.197000"
+ },
+ {
   "model_name": "dm_daily_sales",
   "row_count": 3,
   "invocation_id": "e51a0e02-a528-487f-beec-4584a510043f",
@@ -102,13 +120,13 @@
   "loaded_at": "2026-08-21 19:38:28.683000"
  },
  {
-  "model_name": "dim_partition_status",
+  "model_name": "fact_sale",
   "row_count": 0,
   "invocation_id": "cee095f8-11a8-4771-9ed6-bccc868ffc4f",
   "loaded_at": "2026-08-21 19:38:28.194000"
  },
  {
-  "model_name": "fact_sale",
+  "model_name": "dim_partition_status",
   "row_count": 0,
   "invocation_id": "cee095f8-11a8-4771-9ed6-bccc868ffc4f",
   "loaded_at": "2026-08-21 19:38:28.194000"
