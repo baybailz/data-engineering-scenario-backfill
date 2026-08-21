@@ -97,7 +97,16 @@ def main() -> None:
     elif args.action == "inject_bug":
         config["tax_bug"] = True
         dbt_vars["tax_bug"] = True
-        print("[bug] tax_bug flag set -> net_amount will compute as gross + tax")
+        # pipeline.yml runs this action with --full-refresh, so every
+        # already-loaded day recomputes wrong right now, not on the next
+        # load - record all of them as contaminated, not just days that
+        # get loaded after this point, so fix_and_backfill's default range
+        # actually covers everything that went wrong.
+        for name in loaded:
+            if name not in bugged_dates:
+                bugged_dates.append(name)
+        print(f"[bug] tax_bug flag set -> net_amount will compute as gross + tax "
+              f"({len(loaded)} already-loaded day(s) recompute wrong on this run)")
 
     elif args.action == "fix_and_backfill":
         start = args.backfill_start or (min(bugged_dates) if bugged_dates else None)
