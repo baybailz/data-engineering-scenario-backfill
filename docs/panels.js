@@ -17,7 +17,7 @@ window.PANELS = {
     dm_daily_sales: () => S.tablePanel('dm_daily_sales', 'net total per day, what BI reads',
       {rowClass: r => r.net_total > r.gross_total ? 'rowdup' : '',
        cell: (c,v,r) => c==='net_total'
-         ? `${S.meter(r.gross_total ? Math.min(1, v/r.gross_total) : 0)}${r.net_total > r.gross_total ? ' <span title="net exceeds gross - tax_bug was live for this day">▲</span>' : ''}`
+         ? `${S.meter(r.gross_total ? Math.min(1, v/r.gross_total) : 0)}${r.net_total > r.gross_total ? ' <span title="net exceeds gross: tax_bug was live for this day">▲</span>' : ''}`
          : S.esc(S.fmtCell(v))}),
   },
   afterRun: action => action===S.CFG.actions.reset ? 'incoming' : 'dim_partition_status',

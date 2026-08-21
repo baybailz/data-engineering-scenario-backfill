@@ -14,7 +14,7 @@ window.SLIDES = [
       </div>
       <p class="lead">Daily sales files land, a transform computes net_amount, a fact table is
         partitioned by sale_date. A bug flips the sign on the tax term, a test catches it, and a
-        targeted backfill replays only the days it touched - nothing before, nothing after,
+        targeted backfill replays only the days it touched: nothing before, nothing after,
         and running it twice changes nothing.</p>
       <div class="byline">${esc(S.CFG.author)}</div>
     </div>`;}},
@@ -24,20 +24,20 @@ window.SLIDES = [
       <div class="ptsec">What I assumed</div>
       <ul class="pointlist">
         <li><span class="pt">1</span><span><b>One file lands per day, in order.</b> ${m('incoming/2026-07-DD.csv')}, never out of sequence and never twice.</span></li>
-        <li><span class="pt">2</span><span><b>The bug only ever touches net_amount.</b> gross_amount and tax_amount are always recorded correctly, so the correct total is always recoverable.</span></li>
-        <li><span class="pt">3</span><span><b>A red test is real information, not noise.</b> In CI it should block the merge silently. In this demo, a run that fails on purpose should still publish what it found.</span></li>
+        <li><span class="pt">2</span><span><b>The bug only ever touches net_amount.</b> gross_amount and tax_amount are always recorded correctly, so the correct total is recoverable.</span></li>
+        <li><span class="pt">3</span><span><b>A red test is real information.</b> In CI it blocks the merge; here a failing run still publishes what it found.</span></li>
       </ul>
       <div class="ptsec">How it is built</div>
       <ul class="pointlist">
         <li><span class="pt">1</span><span><b>Bounded replay.</b> ${m('fact_sale')} is incremental with ${m("delete+insert")} on ${m('sale_date')}; a run only touches ${m('[backfill_start, backfill_end]')}.</span></li>
-        <li><span class="pt">2</span><span><b>Idempotent.</b> Backfilling the same range twice deletes and reinserts the same rows - the second run changes nothing.</span></li>
-        <li><span class="pt">3</span><span><b>Fail-closed for data, publish-the-evidence for the page.</b> A failing test still stops nothing being trusted downstream, but the run's JSON - including the FAIL - still ships to the console.</span></li>
+        <li><span class="pt">2</span><span><b>Idempotent.</b> Backfilling the same range twice deletes and reinserts the same rows, so the second run changes nothing.</span></li>
+        <li><span class="pt">3</span><span><b>Fail closed, publish the evidence.</b> A red test blocks the build, but the run's JSON, FAIL included, still ships to the console.</span></li>
       </ul>`;}},
 
   {id:'arch', kicker:'THE ARCHITECTURE', render(){
     return `<h2>The architecture</h2>
       <p class="lead">Run dispatches a GitHub Actions workflow: Python lands or injects or backfills,
-        dbt builds and tests, results are committed back as JSON - even when the build failed.</p>
+        dbt builds and tests, results are committed back as JSON, even when the build failed.</p>
       <div class="diagram" style="position:relative">
         ${S.isNarrow()?S.archFlow():S.svgArch()}
         ${S.isNarrow()?'':`<button class="zoombtn" id="archZoomBtn">${S.archZoom?'&#8854; full picture':'&#8853; zoom to pipeline'}</button>`}
@@ -71,7 +71,7 @@ dbt build --select tag:scenario \\
       ${S.codePanel('fact_sale.sql', 'the delete+insert scope', varsCode, 'sql')}
       <ul class="pointlist" style="margin-top:14px">
         <li><span class="pt">1</span><span><b>Partition key.</b> Every incremental write is scoped by ${m('sale_date')}, never by a full-table upsert.</span></li>
-        <li><span class="pt">2</span><span><b>Idempotent.</b> delete+insert on the same range twice deletes the same rows it just inserted - re-running is a no-op.</span></li>
+        <li><span class="pt">2</span><span><b>Idempotent.</b> delete+insert on the same range twice deletes the same rows it just inserted, so re-running is a no-op.</span></li>
         <li><span class="pt">3</span><span><b>Bounded.</b> Rows outside ${m('[backfill_start, backfill_end]')} are never read, never deleted, never rewritten.</span></li>
       </ul>`;}},
 
@@ -89,7 +89,7 @@ dbt build --select tag:scenario \\
           ${bar('now', d.current, Math.abs(d.current-d.correct)<0.01?'hp-good':'hp-bad')}
         </div></div>`).join('');
     return `<h2>Net total per day: correct, bugged, and now</h2>
-      <p class="lead">Correct is always recoverable - it's ${m('gross_amount - tax_amount')} from the raw rows, bug or no bug.
+      <p class="lead">Correct is always recoverable: ${m('gross_amount - tax_amount')} from the raw rows, bug or no bug.
         Bugged is what actually shipped while ${m('tax_bug')} was on. Now is what ${m('fact_sale')} holds after the last run.</p>
       ${days.length ? `<div class="hpstrip scrollbox">${rows}</div>` :
         '<div class="empty"><div class="big">∅</div>No day has been through the bug yet. Inject it, then load a day.</div>'}
@@ -114,7 +114,7 @@ dbt build --select tag:scenario \\
         <td class="num mono">${S.esc(S.fmtCell(r.tax_total))}</td>
         <td class="num mono"><b>${S.esc(S.fmtCell(r.net_total))}</b></td></tr>`).join('');
     return `<h2>The result</h2>
-      <p class="lead">${m('select * from dm_daily_sales')} - net total per day, converged back to correct.</p>
+      <p class="lead">${m('select * from dm_daily_sales')} &mdash; net total per day, converged back to correct.</p>
       <div class="verdicts scrollbox"><table><thead><tr><th>Date</th><th>Orders</th><th>Gross</th><th>Tax</th><th>Net</th></tr></thead>
       <tbody>${body}</tbody></table></div>`;}},
 ];
