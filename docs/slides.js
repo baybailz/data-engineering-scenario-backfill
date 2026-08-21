@@ -12,10 +12,7 @@ window.SLIDES = [
         <span class="schip hot">python</span><span class="schip hot">dbt</span>
         <span class="schip">duckdb</span><span class="schip">github actions</span>
       </div>
-      <p class="lead">Daily sales files land, a transform computes net_amount, a fact table is
-        partitioned by sale_date. A bug flips the sign on the tax term, a test catches it, and a
-        targeted backfill replays only the days it touched: nothing before, nothing after,
-        and running it twice changes nothing.</p>
+      <div class="whw"><span class="whw-k">What</span><span>A calculation bug shipped and ran for days before anyone noticed. The wrong numbers are already in the tables.</span><span class="whw-k">How</span><span>A test catches it and stops the build. After the fix, only the affected days are replayed, nothing before or after, and running the replay twice changes nothing.</span><span class="whw-k">Why</span><span>Most teams fix bugs by rebuilding everything and hoping. This is a bounded, repeatable repair you can explain to an auditor.</span></div>
       <div class="byline">${esc(S.CFG.author)}</div>
     </div>`;}},
 
