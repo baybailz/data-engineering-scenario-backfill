@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-21T19:41:00+00:00",
+ "generated_at": "2026-08-21T19:41:58+00:00",
  "files_loaded": [
   "2026-07-01",
   "2026-07-02",
@@ -28,7 +28,7 @@
  "net_total": 14874.11,
  "partitions_built": 3,
  "partitions_bugged": 0,
- "tax_bug_active": false,
+ "tax_bug_active": true,
  "daily_series": [
   {
    "date": "2026-07-01",
